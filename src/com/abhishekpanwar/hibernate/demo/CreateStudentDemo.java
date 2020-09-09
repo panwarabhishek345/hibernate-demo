@@ -20,12 +20,18 @@ public class CreateStudentDemo {
 		try {
 			
 			System.out.println("Creating new Student Object...");
-			Student tempStudent = new Student("Abhishek","Panwar","abc@gmail.com");
+			
+			Student tempStudent1 = new Student("John","Doe","john@gmail.com");
+			Student tempStudent2 = new Student("Manish","Pant","manish@gmail.com");
+			Student tempStudent3 = new Student("Brijesh","Kumar","brijesh@gmail.com");
+
 			
 			session.beginTransaction();
 			
 			System.out.println("Saving new Student Object...");
-			session.save(tempStudent);
+			session.save(tempStudent1);
+			session.save(tempStudent2);
+			session.save(tempStudent3);
 			
 			System.out.println("Commiting transaction...");
 			session.getTransaction().commit();
