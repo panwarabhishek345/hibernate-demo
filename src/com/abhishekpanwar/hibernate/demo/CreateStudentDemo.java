@@ -24,23 +24,14 @@ public class CreateStudentDemo {
 			session.beginTransaction();
 			
 			System.out.println("Saving new Student Object...");
-			List<Student> students = session.createQuery("from Student").list();
+			int studentId = 6;
+			Student student = session.get(Student.class,studentId);
 			
-			System.out.println("All students:");
+			student.setEmail("hello@mail.com");
+		
+			session.createQuery("update Student set email='foo@mail.com'")
+			.executeUpdate();
 
-			for (Student student : students) {
-				System.out.println(student);
-			}
-			
-			
-			students = session.createQuery("from Student s where s.lastName = 'Doe'").list();
-			
-			System.out.println("Students with Doe as LastName:");
-
-			for (Student student : students) {
-				System.out.println(student);
-			}
-			
 			System.out.println("Commiting transaction...");
 			session.getTransaction().commit();
 			
