@@ -21,19 +21,24 @@ public class CreateStudentDemo {
 			
 			System.out.println("Creating new Student Object...");
 			
-			Student tempStudent1 = new Student("John","Doe","john@gmail.com");
-			Student tempStudent2 = new Student("Manish","Pant","manish@gmail.com");
-			Student tempStudent3 = new Student("Brijesh","Kumar","brijesh@gmail.com");
-
-			
+			Student tempStudent = new Student("Prakash","Doe","prakash@gmail.com");
+		
 			session.beginTransaction();
 			
 			System.out.println("Saving new Student Object...");
-			session.save(tempStudent1);
-			session.save(tempStudent2);
-			session.save(tempStudent3);
+			session.save(tempStudent);
 			
 			System.out.println("Commiting transaction...");
+			session.getTransaction().commit();
+			
+			System.out.println("Student Id: " + tempStudent.getId());
+			
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			Student myStudent = session.get(Student.class, tempStudent.getId());
+			System.out.println("Get Done: myStudent: " + myStudent);
+			
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
