@@ -1,5 +1,7 @@
 package com.abhishekpanwar.hibernate.demo;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -18,27 +20,28 @@ public class CreateStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			
-			System.out.println("Creating new Student Object...");
-			
-			Student tempStudent = new Student("Prakash","Doe","prakash@gmail.com");
 		
 			session.beginTransaction();
 			
 			System.out.println("Saving new Student Object...");
-			session.save(tempStudent);
+			List<Student> students = session.createQuery("from Student").list();
+			
+			System.out.println("All students:");
+
+			for (Student student : students) {
+				System.out.println(student);
+			}
+			
+			
+			students = session.createQuery("from Student s where s.lastName = 'Doe'").list();
+			
+			System.out.println("Students with Doe as LastName:");
+
+			for (Student student : students) {
+				System.out.println(student);
+			}
 			
 			System.out.println("Commiting transaction...");
-			session.getTransaction().commit();
-			
-			System.out.println("Student Id: " + tempStudent.getId());
-			
-			session = factory.getCurrentSession();
-			session.beginTransaction();
-			
-			Student myStudent = session.get(Student.class, tempStudent.getId());
-			System.out.println("Get Done: myStudent: " + myStudent);
-			
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
