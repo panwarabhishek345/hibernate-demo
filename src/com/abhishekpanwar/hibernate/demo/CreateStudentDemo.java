@@ -23,14 +23,14 @@ public class CreateStudentDemo {
 		
 			session.beginTransaction();
 			
-			System.out.println("Saving new Student Object...");
+			System.out.println("Deleting Student Object...");
 			int studentId = 6;
 			Student student = session.get(Student.class,studentId);
 			
-			student.setEmail("hello@mail.com");
+			session.delete(student);
 		
-			session.createQuery("update Student set email='foo@mail.com'")
-			.executeUpdate();
+//			session.createQuery("update Student set email='foo@mail.com'")
+//			.executeUpdate();
 
 			System.out.println("Commiting transaction...");
 			session.getTransaction().commit();
